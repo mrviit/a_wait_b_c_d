@@ -1,0 +1,38 @@
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function user(fn) {
+    await sleep(2000);
+    await mylib(async () => {
+        await sleep(2000);
+        console.log("fn");
+    })
+    await sleep(2000);
+    console.log("user");
+}
+
+async function mylib(fn) {
+    await sleep(2000);
+    await mainlib(fn);
+    console.log("mylib");
+}
+
+async function mainlib(fn) {
+    await sleep(2000);
+    await sublib(fn);
+    console.log("mainlib");
+}
+async function sublib(fn) {
+    await sleep(2000);
+    fn();
+    console.log("sublib");
+}
+user();
+
+// fn
+// sublib
+// mainlib
+// mylib
+// user
